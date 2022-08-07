@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.mybag">
+
+	<insert id="insertMyBag" >
+		<selectKey resultType="int" keyProperty="bagGoodsId" order="BEFORE">
+	    	SELECT 
+	    			SEQ_BAG_GOODS_ID.NEXTVAL 
+	    	FROM 
+	    			DUAL
+	    </selectKey>
+	    INSERT INTO T_GOODS_MYBAG (
+				BAG_GOODS_ID,	  
+			    MEMBER_ID,             
+			    GOODS_ID,       
+			    BAG_GOODS_TITLE,
+			    BAG_GOODS_PRICE,
+			    BAG_GOODS_WRITER,
+				BAG_GOODS_SORT,
+				BAG_GOODS_QTY,
+				BAG_GOODS_TOTALPRICE,
+				BAG_GOODS_TOTALQTY
+				)
+		VALUES(
+				#{bagGoodsId},
+			    #{memberId},             
+			    #{goodsId},       
+			    #{goodsTitle},
+			    #{goodsPrice},       
+			    #{goodsWriter},       
+				#{goodsSort},
+				#{bagGoodsQty},
+				#{goodsPrice},
+				#{bagGoodsQty}
+		)
+		
+	
+	</insert>
+	<update id="updatetMyBag">
+		UPDATE  
+				T_GOODS_MYBAG
+		SET
+			BAG_GOODS_TOTALPRICE =  #{goodsPrice}*#{bagGoodsQty},
+			BAG_GOODS_TOTALQTY = #{bagGoodsQty}
+		WHERE
+			BAG_GOODS_ID = (
+							SELECT
+									MAX(BAG_GOODS_ID)
+							FROM
+									T_GOODS_MYBAG)
+			
+	
+	</update>
+	
+
+	
+	<select id="selectGoods" resultType="com.bms.goods.dto.GoodsDTO" parameterType="int">
+		SELECT
+			*
+		FROM
+			T_SHOPPING_GOODS
+		WHERE
+			GOODS_ID = #{goodsId}
+	</select>
+	
+	<select id="selectMyBagList" resultType="com.bms.member.mybag.dto.MyBagDTO" parameterType="String">
+		SELECT
+			 *
+		FROM
+			T_GOODS_MYBAG
+		WHERE
+			MEMBER_ID = #{memberId}
+	</select>
+	<delete id="deleteMyBag">
+	DELETE 
+	
+	FROM
+		T_GOODS_MYBAG
+		
+	WHERE
+		BAG_GOODS_ID = #{bagGoodsId}
+	
+	
+	</delete>
+<update id="UpdateGoodsQty">
+	UPDATE 
+			T_GOODS_MYBAG
+	SET
+		BAG_GOODS_QTY = #{bagGoodsQty},
+		BAG_GOODS_TOTALPRICE = (
+								SELECT
+										GOODS_PRICE
+								FROM
+										T_SHOPPING_GOODS
+								WHERE
+										GOODS_ID = (
+													SELECT
+															GOODS_ID
+													FROM
+														T_GOODS_MYBAG
+													WHERE
+														 BAG_GOODS_ID = #{bagGoodsId}))*#{bagGoodsQty}
+	WHERE
+		BAG_GOODS_ID = #{bagGoodsId}
+
+</update>	
+<insert id="insertNewOrder" >
+	    <selectKey resultType="int" keyProperty="orderSeqNum" order="BEFORE">
+	    	SELECT 
+	    			ORDER_SEQ_NUM.NEXTVAL 
+	    	FROM 
+	    			DUAL
+	    </selectKey>
+	    <![CDATA[
+			INSERT INTO T_SHOPPING_ORDER (
+											ORDER_SEQ_NUM,
+											ORDER_ID,
+											MEMBER_ID,
+											GOODS_ID,
+											ORDERER_NAME,
+											GOODS_TITLE,
+											ORDER_GOODS_QTY,
+											GOODS_SALES_PRICE,
+											GOODS_FIILE_NAME,
+											RECEIVER_NAME,
+											RECEIVER_HP1,
+											RECEIVER_HP2,
+											RECEIVER_HP3,
+											RECEIVER_TEL1,
+											RECEIVER_TEL2,
+											RECEIVER_TEL3,
+											DELIVERY_ADDRESS,
+											DELIVERY_METHOD,
+											DELIVERY_MESSAGE,
+											GIFT_WRAPPING,
+											PAY_METHOD,
+											CARD_COM_NAME,
+											CARD_PAY_MONTH,
+											PAY_ORDERER_HP_NUM,
+											ORDERER_HP,
+											DELIVERY_STATE,
+											PAY_ORDER_TIME,
+											BAG_ORDER
+											)
+		
+		VALUES(
+		     		#{orderSeqNum},
+		            #{orderId},
+				    #{memberId},
+				    #{goodsId},
+				    #{ordererName},
+				    #{goodsTitle},
+				    #{goodsQty},
+				    #{goodsSalesPrice},
+				    #{goodsFileName},
+				    #{receiverName},
+				    #{receiverHp1},
+                    #{receiverHp2},
+                    #{receiverHp3},
+                    #{receiverTel1},
+                    #{receiverTel2},
+                    #{receiverTel3},
+                    #{deliveryAddress},
+	                #{deliveryMethod},
+                    #{deliveryMessage},
+	                #{giftWrapping},
+	                #{payMethod},
+	                #{cardComName},
+	                #{cardPayMonth},
+	                #{ordererHp},
+	                #{payOrdererHpNum},
+	                'deliveryPrepared',
+	                SYSDATE,
+	                'mybag'
+	          )
+    	]]>
+	</insert>	
+	
+	<update id="updateMyBagCountUp">
+		UPDATE T_SHOPPING_MEMBER
+	
+		SET
+			MYBAG_COUNT = MYBAG_COUNT +1
+		WHERE
+			MEMBER_ID = #{memberId}
+	
+	</update>
+	<update id="updateMyBagCountDoun">
+		UPDATE T_SHOPPING_MEMBER
+	
+		SET
+			MYBAG_COUNT = MYBAG_COUNT-1
+		WHERE
+			MEMBER_ID = #{memberId}
+	
+	</update>
+	
+	<select id="selectCount" resultType="int" parameterType="String">
+		SELECT
+				MYBAG_COUNT
+		FROM
+			T_SHOPPING_MEMBER
+		WHERE
+			MEMBER_ID = #{memberId}
+	</select>
+	
+	<update id="resetCount">
+	UPDATE T_SHOPPING_MEMBER
+	
+		SET
+			MYBAG_COUNT = 0
+		WHERE
+			MEMBER_ID = #{memberId}
+	
+	
+	</update>
+	<delete id="oraderAfterMyBag">
+		DELETE 
+	
+	FROM
+		T_GOODS_MYBAG
+		
+	WHERE
+		MEMBER_ID= #{memberId}
+	</delete>
+
+</mapper>

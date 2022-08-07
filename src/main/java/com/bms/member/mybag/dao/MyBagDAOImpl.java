@@ -45,7 +45,7 @@ public class MyBagDAOImpl implements MyBagDAO {
 	@Override
 	public void deleteMyBag(Map<Object, Object> deleteInfo) throws Exception {
 		String memberId = (String)deleteInfo.get("memberId");
-		int bagGoodsId = (int)deleteInfo.get("bagGoodsId");
+		int bagGoodsId = Integer.parseInt((String) deleteInfo.get("bagGoodsId"));
 		
 		sqlSession.delete("mapper.mybag.deleteMyBag",bagGoodsId);
 		sqlSession.update("mapper.mybag.updateMyBagCountDoun",memberId);

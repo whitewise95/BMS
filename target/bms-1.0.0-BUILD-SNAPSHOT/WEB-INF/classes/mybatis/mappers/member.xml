@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+
+	<select id="login" resultType="MemberDTO"  parameterType="java.util.Map"  >
+	    <![CDATA[
+			SELECT 
+					* 
+			FROM 
+					T_SHOPPING_MEMBER 
+			WHERE 
+					MEMBER_ID = #{memberId}		
+		]]>
+	</select>
+	
+	<select id="selectOverlappedID" parameterType="String" resultType="String">
+	   SELECT 
+	   			DECODE(COUNT(*),1, 'true', 0, 'false')
+	   FROM 
+	   			T_SHOPPING_MEMBER
+	   WHERE 
+	   			MEMBER_ID = #{id}
+	</select>
+	
+  <insert id="insertNewMember" parameterType="memberDTO">
+	  <![CDATA[
+	    	INSERT INTO T_SHOPPING_MEMBER VALUES(
+					#{memberId},
+					#{memberPw},
+					#{memberName},
+	             	#{memberGender},
+	               	#{memberBirthY},
+	               	#{memberBirthM},
+	                #{memberBirthD},
+	                #{memberBirthGn},
+	                #{tel1},
+	                #{tel2},
+	                #{tel3},
+	                #{hp1},
+	                #{hp2},
+	                #{hp3},
+	                #{smsstsYn},
+	                #{email1},
+	                #{email2},
+	                #{emailstsYn},
+	                #{zipcode},
+	                #{roadAddress},
+	                #{jibunAddress},
+	                #{namujiAddress},
+	                SYSDATE,
+	                'N',
+	                0
+	        )
+	   ]]>      
+  </insert>
+  
+  <select id="selectId" resultType="memberDTO" parameterType="memberDTO">
+  	  SELECT 
+	   			MEMBER_ID
+	   FROM 
+	   			T_SHOPPING_MEMBER
+	   WHERE 
+	   			MEMBER_NAME = #{memberName} AND
+	   			MEMBER_BIRTH_Y = #{memberBirthY} AND
+				MEMBER_BIRTH_M = #{memberBirthM} AND
+				MEMBER_BIRTH_D = #{memberBirthD} AND
+				DEL_YN = 'N' AND
+				MEMBER_BIRTH_GN = #{memberBirthGn}
+  </select>
+  
+  <select id="selectPw" resultType="String" parameterType="memberDTO">
+  	  SELECT 
+	   			MEMBER_ID
+	   FROM 
+	   			T_SHOPPING_MEMBER
+	   WHERE 
+	   			MEMBER_ID = #{memberId} And
+	   			MEMBER_BIRTH_Y = #{memberBirthY} AND
+				MEMBER_BIRTH_M = #{memberBirthM} AND
+				MEMBER_BIRTH_D = #{memberBirthD} AND
+				DEL_YN = 'N' AND
+				MEMBER_BIRTH_GN = #{memberBirthGn}
+  </select>
+  
+  <update id="updatePassword" parameterType="map">
+  	UPDATE 
+  			T_SHOPPING_MEMBER 
+  	SET
+  		MEMBER_PW = #{memberPw}
+  		
+  	WHERE
+  			MEMBER_ID = #{memberId}
+  		
+  	
+  </update>
+  <select id="selectCacaoId" resultType="memberDTO" parameterType="String">
+  	SELECT
+  			*
+  	FROM
+  		T_SHOPPING_MEMBER 
+  	WHERE
+  		MEMBER_ID = #{memberId}
+  
+  </select>
+  <select id="selectNaverId" resultType="String" parameterType="String">
+  	SELECT
+  			MEMBER_ID
+  	FROM
+  		T_SHOPPING_MEMBER 
+  	WHERE
+  		MEMBER_ID = #{memberId}
+  
+  </select>
+  
+</mapper>

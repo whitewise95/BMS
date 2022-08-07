@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	  <definition name="/member/login" extends="baseLayout">
+         <put-attribute name="title" value="로그인 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
+      </definition>  
+      
+	  <definition name="/member/loginForm" extends="baseLayout">
+         <put-attribute name="title" value="로그인 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
+      </definition>  
+      
+      <definition name="/member/memberForm" extends="baseLayout">
+         <put-attribute name="title" value="회원 가입 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/memberForm.jsp" />
+      </definition>
+      <definition name="/member/addMember" extends="baseLayout">
+         <put-attribute name="title" value="회원 가입 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/memberForm.jsp" />
+      </definition>
+	  <definition name="/member/findIdAndPw" extends="baseLayout">
+         <put-attribute name="title" value="아이디 찾기 및 비밀번호 찾기" />
+         <put-attribute name="body" value="/WEB-INF/views/member/findIdAndPw.jsp" />
+      </definition>  
+	  <definition name="/member/knowIdAndPw" extends="baseLayout">
+         <put-attribute name="title" value="아이디 찾기 및 비밀번호 찾기" />
+         <put-attribute name="body" value="/WEB-INF/views/member/knowIdAndPw.jsp" />
+      </definition>  
+	  <definition name="/member/cacaoLogin" extends="baseLayout">
+         <put-attribute name="title" value="카카오 로그인" />
+         <put-attribute name="body" value="/WEB-INF/views/member/cacaoLogin.jsp" />
+      </definition>  
+	  <definition name="/member/callBack" extends="baseLayout">
+         <put-attribute name="title" value="카카오 로그인" />
+         <put-attribute name="body" value="/WEB-INF/views/member/callBack.jsp" />
+      </definition>  
+  
+</tiles-definitions>
+
+
