@@ -48,7 +48,27 @@
 
 ## 👥팀원 소개
 
+### 프로젝트관리자(PM) 및 기술지원(TA)
+- 안벽욱
+
+### 개발자(Developer)
+- 백현명
+
+<details>
+<summary>🔍자세히 </summary>
+<div markdown="1">       
+
  ![화면 캡처 2022-08-08 112527](https://user-images.githubusercontent.com/81284265/183326006-25452f8e-a402-4276-bf9f-2083e63426b5.png)
+
+</div>
+</details>
+
+
+## 
+
+
+
+
 
 <br />
 
