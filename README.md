@@ -54,7 +54,7 @@
 
 ## ⚙ ERD 설계
 
- <img src="https://user-images.githubusercontent.com/81284265/183326348-74325841-8da3-44c3-aba8-7c8d8846e2d8.png" width="1000px">
+ <img src="https://user-images.githubusercontent.com/81284265/183326348-74325841-8da3-44c3-aba8-7c8d8846e2d8.png" width="1500px">
 
 
 
