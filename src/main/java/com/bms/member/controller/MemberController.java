@@ -53,7 +53,7 @@ public class MemberController {
 		if (memberDTO != null && memberDTO.getDelYn().equals("N")) { 	// 조회된 결과가 있으면
 
 			HttpSession session = request.getSession();		// 세션 객체 생성
-			session.setAttribute("isLogOn", true);			// 로그인 true
+			session.setAttribute("isLogOn", true);			//  true
 			session.setAttribute("memberInfo",memberDTO);	// memberInfo에 로그인한 계정의 정보등록
 			String action = (String)session.getAttribute("action");
 			
