@@ -69,7 +69,6 @@ public class MemberController {
 			mv.setViewName("/member/loginForm");
 		}
 		return mv;
-		
 	}
 
 	
