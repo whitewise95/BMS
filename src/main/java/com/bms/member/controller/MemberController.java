@@ -64,6 +64,7 @@ public class MemberController {
 				mv.setViewName("redirect:/main/main.do");	// 메인으로 이동
 			}
 		}
+
 		else { // 조회된 결과가 없으면
 			mv.addObject("message", "로그인에 실패하였습니다.");
 			mv.setViewName("/member/loginForm");
